@@ -3,7 +3,7 @@ name: Installing Python
 on: [push]
 
 jobs:
-  BuildPhase: #build
+  build:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-12, windows-latest]
@@ -14,31 +14,3 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.py-version }}
-
-
-  TestPhase:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-12, windows-latest]
-        py-version: [3.7, 3.8, 3.9]
-    needs: BuildPhase
-    runs-on: ${{ matrix.os }}
-    steps:
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.py-version }}
-        
-  DeployPhase:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-12, windows-latest]
-        py-version: [3.7, 3.8, 3.9]
-    needs: TestPhase
-    runs-on: ${{ matrix.os }}
-    steps:
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ matrix.py-version }}
-        
